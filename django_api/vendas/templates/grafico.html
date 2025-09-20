@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gráfico de Vendas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            margin-right: 10px;
+        }
+        input, select {
+            margin-right: 20px;
+            padding: 5px;
+        }
+        button {
+            padding: 6px 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gráfico de Vendas</h1>
+
+    <form method="get">
+        <label for="inicio">Data inicial:</label>
+        <input type="date" name="inicio" id="inicio" value="{{ request.GET.inicio }}">
+
+        <label for="fim">Data final:</label>
+        <input type="date" name="fim" id="fim" value="{{ request.GET.fim }}">
+
+        <label for="produto">Produto:</label>
+        <select name="produto" id="produto">
+            <option value="">Todos</option>
+            {% for p in produtos %}
+                <option value="{{ p }}" {% if request.GET.produto == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Filtrar</button>
+    </form>
+
+    {{ grafico|safe }}
+</body>
+</html>
